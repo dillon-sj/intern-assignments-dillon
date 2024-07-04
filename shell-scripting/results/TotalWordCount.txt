@@ -1,0 +1,6 @@
+File: /home/dillon/Documents/learing/blah.sh - Word count: 0
+File: /home/dillon/Documents/learing/file1.txt - Word count: 14
+File: /home/dillon/Documents/learing/file2.txt - Word count: 7
+File: /home/dillon/Documents/learing/file3.txt - Word count: 14
+File: /home/dillon/Documents/learing/script.sh - Word count: 16
+File: /home/dillon/Documents/learing/test.sh - Word count: 1

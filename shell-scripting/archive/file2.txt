@@ -1,0 +1,4 @@
+Normal | Info2 | Info3 | Info4
+Regular | Info2 | Info3 | Info4
+IMPORTANT | Info2 | Info3 | Info4
+Normal | Info2 | Info3 | Info4
