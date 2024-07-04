@@ -1,5 +1,6 @@
 MY TO-DO LIST
 
-1.Learn Git Basics 
-2.Commit progress to GitHub
-3.Continue coding
+1.Learn Git Basics.
+2.Commit progress to GitHub.
+3.Continue coding.
+4.Complete internship task.
