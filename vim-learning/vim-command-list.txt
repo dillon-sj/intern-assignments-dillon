@@ -1,0 +1,46 @@
+Basic Navigation
+- `h`: Move cursor left
+- `j`: Move cursor down
+- `k`: Move cursor up
+- `l`: Move cursor right
+
+Modes
+- `i`: Insert mode (press `Esc` to return to normal mode)
+- `v`: Visual mode (for selecting text)
+- `V`: Visual line mode
+- `Ctrl-v`: Visual block mode
+- `:`: Command mode (for commands like saving, quitting, etc.)
+
+Basic Editing
+- `x`: Delete the character under the cursor
+- `dw`: Delete word
+- `dd`: Delete the current line
+- `u`: Undo
+- `Ctrl-r`: Redo
+- `yy`: Copy (yank) the current line
+- `p`: Paste after the cursor
+- `P`: Paste before the cursor
+
+Saving and Quitting
+- `:w`: Save the current file
+- `:q`: Quit Vim
+- `:wq`: Save and quit
+- `:q!`: Quit without saving
+
+Searching
+- `/pattern`: Search for `pattern`
+- `n`: Repeat search in the same direction
+- `N`: Repeat search in the opposite direction
+
+Moving Around
+- `gg`: Go to the beginning of the file
+- `G`: Go to the end of the file
+- `0`: Go to the beginning of the line
+- `$`: Go to the end of the line
+
+Working with Files
+- `:e filename`: Open `filename`
+- `:w filename`: Save as `filename`
+- `:set nu`: Show line numbers
+- `:set nonu`: Hide line numbers
+
