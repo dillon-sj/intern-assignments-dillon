@@ -1,0 +1,19 @@
+
+#* Add your details to 'employees' collection.
+db.Employees.insertOne({employee_id: '200410',employee_first_name: 'Dillon',employee_last_name:'Juriansz'})
+
+
+#* Write a query to return all the employees with employee_id, employee name, SBUs and COE.
+db.Employees.find({}, { employee_id: 1, employee_name: 1, sbu: 1, coe: 1 })
+
+
+#* Write a query to return all the employees with employee_id, employee name, SBUs and COE, but exclude their '_id's.
+db.Employees.find({}, { _id: 0, employee_id: 1, employee_name: 1, sbu: 1, coe: 1 })
+
+
+#* Write a query to return all the employees who belong to 'Engineering' COE, with employee_id, employee name, SBUs and COE, but exclude their '_id's.
+db.Employees.find({ coe: "Engineering" }, { _id: 0, employee_id: 1, employee_name: 1, sbu: 1, coe: 1 })
+
+#* Write a query to return all the employees whose 'employee_last_name' ends with 'yake', with employee_id, employee_first_name, and employee_last_name.
+db.Employees.find({ employee_last_name: /yake$/ }, { employee_id: 1, employee_first_name: 1, employee_last_name: 1 })
+
