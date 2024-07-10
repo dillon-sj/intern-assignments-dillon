@@ -10,21 +10,6 @@
  * to and intellectual property rights in these materials.
  */
 
-/**
- * Questions
- * Create an array of integers with the values: [5, 10, 15, 20, 25, 30, 35, 40].
- * Use a Kotlin array function to calculate and print the sum of all the elements in the array.
- * Use a forEach loop to print each number in the list.
- * Use a Kotlin array function to find and print the maximum value in the array.
- * Use a Kotlin array function to find and print the minimum value in the array.
- * Use a Kotlin array function to filter and create a new array that contains only the even numbers from the original array. Print the new array.
- * Use a Kotlin array function to map each element in the original array to its square. Print the resulting array.
- * Use a Kotlin array function to check if any element in the array is divisible by 5. Print "Yes" if there is such an element, or "No" if none are divisible by 5.
- * Use a Kotlin array function to sort the array in ascending order. Print the sorted array.
- * Use a Kotlin array function to reverse the order of elements in the array. Print the reversed array.
- * Use a Kotlin array function to count the number of elements greater than 20 in the array. Print the count.
- */
-
 fun main() {
     // Create an array of integers
     val multiplesOfFive: Array<Int> = arrayOf(5, 10, 15, 20, 25, 30, 35, 40)
