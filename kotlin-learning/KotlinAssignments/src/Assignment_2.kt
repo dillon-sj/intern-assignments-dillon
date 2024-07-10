@@ -14,7 +14,9 @@ fun calculateSquare(number: Int): Int {
     val squaredNumber = number * number
     return squaredNumber
 
+
 }
+
 
 fun main() {
     println(calculateSquare(5))
