@@ -12,9 +12,19 @@ package com.dillon.kotlin.assignment4
  * to and intellectual property rights in these materials.
  */
 
-//By default, classes cant be inherited so use the open keyword
-open class Person(val name: String, val age: Int) {
+
+open class Person(name: String, var age: Int) {
+    var name: String? = name
+
     open fun printDetails() {
         println("Name: $name, Age: $age")
+
     }
+
+
+    override fun toString(): String {
+        return "Person(age=$age, name=$name)"
+    }
+
+
 }

@@ -1,4 +1,4 @@
-package com.dillon.kotlin.assignment4
+package com.dillon.kotlin.assignment5
 
 /**
  * Copyright 2008-2019 hSenid Software International (Pvt) Limited.
@@ -11,13 +11,8 @@ package com.dillon.kotlin.assignment4
  * hSenid Software International (Pvt) Limited retains all title
  * to and intellectual property rights in these materials.
  */
-class Student(
-    name: String, age: Int, private val school: String, private val schoolId: Int
-) : Person(name, age) {
 
-    fun printStudentDetails() {
-        println("Name: $name, Age: $age, School: $school, SchoolId: $schoolId")
-    }
-
-
+@FunctionalInterface
+interface Shape {
+    fun area(): Double
 }
