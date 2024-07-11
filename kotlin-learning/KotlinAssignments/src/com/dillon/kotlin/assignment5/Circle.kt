@@ -1,9 +1,3 @@
-package com.dillon.kotlin.assignment5
-
-import kotlin.math.round
-import kotlin.math.roundToInt
-
-
 /**
  * Copyright 2008-2019 hSenid Software International (Pvt) Limited.
  * All Rights Reserved.
@@ -15,6 +9,9 @@ import kotlin.math.roundToInt
  * hSenid Software International (Pvt) Limited retains all title
  * to and intellectual property rights in these materials.
  */
+package com.dillon.kotlin.assignment5
+
+import kotlin.math.round
 
 class Circle(private val radius: Double) : Shape {
 

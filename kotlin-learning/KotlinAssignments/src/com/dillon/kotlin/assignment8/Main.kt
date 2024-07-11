@@ -1,7 +1,3 @@
-package com.dillon.kotlin.assignment8
-
-import com.dillon.kotlin.assignment8.Main.Person
-import java.time.Year
 
 /**
  * Copyright 2008-2019 hSenid Software International (Pvt) Limited.
@@ -14,10 +10,13 @@ import java.time.Year
  * hSenid Software International (Pvt) Limited retains all title
  * to and intellectual property rights in these materials.
  */
+package com.dillon.kotlin.assignment8
+
+import com.dillon.kotlin.assignment8.Main.Person
+import java.time.Year
 
 class Main {
     data class Person(val name: String, val age: Int)
-
 
 }
 
@@ -28,7 +27,7 @@ fun Person.birthYearCalc(): Int {
 
 fun main() {
 
-    val person = listOf(Person("Alice", 29),Person("Bob", 31),
+    val person = listOf(Person("Alice", 29),Person("Vanuja", 21),
                         Person("Dillon",20), Person("Charlie", 35),
                         Person("Diana", 40))
 

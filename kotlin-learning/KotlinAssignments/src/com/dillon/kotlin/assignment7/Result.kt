@@ -1,4 +1,3 @@
-package com.dillon.kotlin.assignment7
 
 /**
  * Copyright 2008-2019 hSenid Software International (Pvt) Limited.
@@ -11,6 +10,7 @@ package com.dillon.kotlin.assignment7
  * hSenid Software International (Pvt) Limited retains all title
  * to and intellectual property rights in these materials.
  */
+package com.dillon.kotlin.assignment7
 
 sealed class Result {
     data class Success(val message: String) : Result()

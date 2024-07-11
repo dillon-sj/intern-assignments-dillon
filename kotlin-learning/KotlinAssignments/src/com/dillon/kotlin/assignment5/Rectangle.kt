@@ -1,7 +1,3 @@
-package com.dillon.kotlin.assignment5
-
-import kotlin.math.round
-
 /**
  * Copyright 2008-2019 hSenid Software International (Pvt) Limited.
  * All Rights Reserved.
@@ -13,6 +9,9 @@ import kotlin.math.round
  * hSenid Software International (Pvt) Limited retains all title
  * to and intellectual property rights in these materials.
  */
+package com.dillon.kotlin.assignment5
+
+import kotlin.math.round
 
 class Rectangle(private val width: Double, private val height: Double) : Shape {
     override fun area(): Double {

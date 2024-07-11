@@ -10,15 +10,17 @@
  * to and intellectual property rights in these materials.
  */
 
-fun calculateSquare(number: Int): Int {
+fun calculateSquare(number: Int ): Int {
     val squaredNumber = number * number
     return squaredNumber
 
-
 }
 
-
 fun main() {
-    println(calculateSquare(5))
+
+    val numbers = listOf(1,2,3,4,5)
+    val squaredNumbers = numbers.map { calculateSquare(it) }
+
+    println(squaredNumbers)
 
 }

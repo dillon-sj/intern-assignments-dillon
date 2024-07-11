@@ -1,6 +1,3 @@
-package com.dillon.kotlin.assignment7
-
-
 /**
  * Copyright 2008-2019 hSenid Software International (Pvt) Limited.
  * All Rights Reserved.
@@ -12,6 +9,8 @@ package com.dillon.kotlin.assignment7
  * hSenid Software International (Pvt) Limited retains all title
  * to and intellectual property rights in these materials.
  */
+package com.dillon.kotlin.assignment7
+
 
 enum class Color(var colorName: String, var hexCode: String) {
     RED("red", "ff0000"),
@@ -19,7 +18,6 @@ enum class Color(var colorName: String, var hexCode: String) {
     BLUE("blue", "0000ff"),
     WHITE("white", "ffffff"),
     BLACK("black", "000000"),
-
 
 }
 

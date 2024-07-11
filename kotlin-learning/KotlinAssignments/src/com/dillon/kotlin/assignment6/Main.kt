@@ -1,6 +1,3 @@
-package com.dillon.kotlin.assignment6
-
-
 /**
  * Copyright 2008-2019 hSenid Software International (Pvt) Limited.
  * All Rights Reserved.
@@ -12,7 +9,7 @@ package com.dillon.kotlin.assignment6
  * hSenid Software International (Pvt) Limited retains all title
  * to and intellectual property rights in these materials.
  */
-
+package com.dillon.kotlin.assignment6
 
 object MathUtility {
     fun factorial(n: Int): Long {
@@ -31,7 +28,6 @@ fun main() {
 
     println("Book Title: ${book.title}")
     println("Book Author: ${book.author}")
-
 
     val number: Int = 5
     val result = MathUtility.factorial(number)

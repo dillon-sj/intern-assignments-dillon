@@ -1,5 +1,3 @@
-package com.dillon.kotlin.assignment4
-
 /**
  * Copyright 2008-2019 hSenid Software International (Pvt) Limited.
  * All Rights Reserved.
@@ -11,7 +9,7 @@ package com.dillon.kotlin.assignment4
  * hSenid Software International (Pvt) Limited retains all title
  * to and intellectual property rights in these materials.
  */
-
+package com.dillon.kotlin.assignment4
 
 open class Person(name: String, var age: Int) {
     var name: String? = name
@@ -21,10 +19,8 @@ open class Person(name: String, var age: Int) {
 
     }
 
-
     override fun toString(): String {
         return "Person(age=$age, name=$name)"
     }
-
 
 }

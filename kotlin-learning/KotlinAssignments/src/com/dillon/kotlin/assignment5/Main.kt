@@ -1,5 +1,3 @@
-package com.dillon.kotlin.assignment5
-
 /**
  * Copyright 2008-2019 hSenid Software International (Pvt) Limited.
  * All Rights Reserved.
@@ -11,6 +9,7 @@ package com.dillon.kotlin.assignment5
  * hSenid Software International (Pvt) Limited retains all title
  * to and intellectual property rights in these materials.
  */
+package com.dillon.kotlin.assignment5
 
 fun main() {
     val shapes: List<Shape> = listOf(
