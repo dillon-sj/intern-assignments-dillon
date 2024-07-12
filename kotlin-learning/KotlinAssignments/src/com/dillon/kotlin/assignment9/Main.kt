@@ -11,28 +11,31 @@
  */
 package com.dillon.kotlin.assignment9
 
-class Main {
     fun performOperation(x: Double, y: Double, operation: (Double, Double) -> Double): Double {
         return operation(x, y)
     }
 
-}
+    fun divide(x: Double, y: Double): Double {
+        return x / y
+    }
+
 
 fun main() {
-    val main = Main()
+
     val x = 8.0
     val y = 2.0
 
     val add: (Double, Double) -> Double = { a, b -> a + b }
     val sub: (Double, Double) -> Double = { a, b -> a - b }
     val multiply: (Double, Double) -> Double = { a, b -> a * b }
-    val divide: (Double, Double) -> Double = { a, b -> a / b }
+    val divides: Double = performOperation(10.0,2.0, ::divide)
+
 
     val results = mutableListOf<Double>()
-    results.add(main.performOperation(x, y, add))
-    results.add(main.performOperation(x, y, sub))
-    results.add(main.performOperation(x, y, multiply))
-    results.add(main.performOperation(x, y, divide))
+    results.add(performOperation(x, y, add))
+    results.add(performOperation(x, y, sub))
+    results.add(performOperation(x, y, multiply))
+    results.add(divides)
 
     println("Results:")
     results.forEachIndexed { index, result ->
