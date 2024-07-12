@@ -11,13 +11,13 @@
  */
 package com.dillon.kotlin.assignment9
 
-    fun performOperation(x: Double, y: Double, operation: (Double, Double) -> Double): Double {
-        return operation(x, y)
-    }
+fun performOperation(x: Double, y: Double, operation: (Double, Double) -> Double): Double {
+    return operation(x, y)
+}
 
-    fun divide(x: Double, y: Double): Double {
-        return x / y
-    }
+fun divide(x: Double, y: Double): Double {
+    return x / y
+}
 
 
 fun main() {
@@ -28,7 +28,7 @@ fun main() {
     val add: (Double, Double) -> Double = { a, b -> a + b }
     val sub: (Double, Double) -> Double = { a, b -> a - b }
     val multiply: (Double, Double) -> Double = { a, b -> a * b }
-    val divides: Double = performOperation(10.0,2.0, ::divide)
+    val divides: Double = performOperation(10.0, 2.0, ::divide)
 
 
     val results = mutableListOf<Double>()
