@@ -1,4 +1,7 @@
 
+#* Write a query to return a single document from the 'employees' collection.
+db.Employees.find({employee_id: "001004"})
+
 #* Add your details to 'employees' collection.
 db.Employees.insertOne({employee_id: '200410',employee_first_name: 'Dillon',employee_last_name:'Juriansz'})
 
