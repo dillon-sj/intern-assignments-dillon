@@ -16,11 +16,15 @@ import com.hSenid.dillon.springLearning.springbootlearning.model.Bank
 import org.springframework.stereotype.Repository
 
 @Repository
-class MockBankDataSource: BankDataSource {
+class MockBankDataSource : BankDataSource {
 
-    override fun getBanks(): Collection<Bank> {
-        TODO("Not yet implemented")
-    }
+    val banks = mutableListOf(
+        Bank("321", 7.3, 1),
+        Bank("123", 5.04, 7),
+        Bank("101", 17.38, 6),
+        Bank("202", 0.1, 1),
+    )
 
+    override fun retrieveBanks(): Collection<Bank> = banks
 
 }
