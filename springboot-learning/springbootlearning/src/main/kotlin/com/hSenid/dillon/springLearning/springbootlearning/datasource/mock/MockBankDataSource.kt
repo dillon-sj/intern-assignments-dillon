@@ -22,7 +22,7 @@ class MockBankDataSource : BankDataSource {
         Bank("321", 7.3, 1),
         Bank("123", 5.04, 7),
         Bank("101", 17.38, 6),
-        Bank("202", 0.1, 1),
+        Bank("202", 7.0, 1),
     )
 
     override fun retrieveBanks(): Collection<Bank> = banks

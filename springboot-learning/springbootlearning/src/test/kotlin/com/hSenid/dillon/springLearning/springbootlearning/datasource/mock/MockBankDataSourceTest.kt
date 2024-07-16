@@ -31,7 +31,7 @@ internal class MockBankDataSourceTest {
 
         //then
         assertThat(banks).allMatch { it.accountNumber.isNotBlank() }
-        assertThat(banks).anyMatch { it.trust != 0.0 }
+        assertThat(banks).allMatch { it.trust != 0.0 }
         assertThat(banks).allMatch { it.transactionFee != 0 }
 
 
