@@ -27,5 +27,17 @@ class MockBankDataSource : BankDataSource {
 
     override fun retrieveBanks(): Collection<Bank> = banks
 
-    override fun retrieveBank(accountNumber: String): Bank = banks.firstOrNull() { it.accountNumber == accountNumber }?: throw NoSuchElementException("No account found with accountNumber $accountNumber")
+    override fun retrieveBank(accountNumber: String): Bank = banks.firstOrNull() {
+        it.accountNumber == accountNumber
+    } ?: throw NoSuchElementException("No account found with accountNumber $accountNumber")
+
+    override fun createBank(bank: Bank): Bank {
+        if (banks.any { it.accountNumber == bank.accountNumber }) {
+            throw IllegalArgumentException("Bank with accountNumber ${bank.accountNumber} already exists")
+
+        }
+
+        banks.add(bank)
+        return bank
+    }
 }
