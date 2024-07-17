@@ -16,5 +16,6 @@ import com.hSenid.dillon.springLearning.springbootlearning.model.Bank
 interface BankDataSource {
 
     fun retrieveBanks(): Collection<Bank>
+    fun retrieveBank(accountNumber: String) :Bank
 
 }
