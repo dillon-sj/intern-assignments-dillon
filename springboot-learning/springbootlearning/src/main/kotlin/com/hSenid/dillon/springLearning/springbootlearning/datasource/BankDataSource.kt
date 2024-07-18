@@ -21,5 +21,7 @@ interface BankDataSource {
 
     fun createBank(bank: Bank): Bank
 
+    fun updateBank(bank: Bank): Bank
+
 
 }
