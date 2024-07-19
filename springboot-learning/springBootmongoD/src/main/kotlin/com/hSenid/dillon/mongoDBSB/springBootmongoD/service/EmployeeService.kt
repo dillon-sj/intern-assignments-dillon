@@ -22,4 +22,8 @@ class EmployeeService(private val repository: EmployeeRepository) {
 
     fun findById(id: String): EmployeesDocument? = repository.findById(id).orElse(null)
 
+    fun save(employee: EmployeesDocument): EmployeesDocument = repository.save(employee)
+
+    fun deleteById(id: String) = repository.deleteById(id)
+
 }

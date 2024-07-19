@@ -13,10 +13,7 @@ package com.hSenid.dillon.mongoDBSB.springBootmongoD.controller
 
 import com.hSenid.dillon.mongoDBSB.springBootmongoD.model.EmployeesDocument
 import com.hSenid.dillon.mongoDBSB.springBootmongoD.service.EmployeeService
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/employees")
@@ -27,6 +24,12 @@ class EmployeeController(private val service: EmployeeService) {
 
     @GetMapping("/{id}")
     fun getEmployeeById(@PathVariable id: String): EmployeesDocument? = service.findById(id)
+
+    @PostMapping
+    fun createEmployee(@RequestBody employee: EmployeesDocument): EmployeesDocument = service.save(employee)
+
+    @DeleteMapping("/{id}")
+    fun deleteEmployee(@PathVariable id: String) = service.deleteById(id)
 
 
 }
