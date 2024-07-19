@@ -14,6 +14,7 @@ package com.hSenid.dillon.mongoDBSB.springBootmongoD.controller
 import com.hSenid.dillon.mongoDBSB.springBootmongoD.model.EmployeesDocument
 import com.hSenid.dillon.mongoDBSB.springBootmongoD.service.EmployeeService
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -23,6 +24,9 @@ class EmployeeController(private val service: EmployeeService) {
 
     @GetMapping
     fun getAllEmployees(): List<EmployeesDocument> = service.findAll()
+
+    @GetMapping("/{id}")
+    fun getEmployeeById(@PathVariable id: String): EmployeesDocument? = service.findById(id)
 
 
 }

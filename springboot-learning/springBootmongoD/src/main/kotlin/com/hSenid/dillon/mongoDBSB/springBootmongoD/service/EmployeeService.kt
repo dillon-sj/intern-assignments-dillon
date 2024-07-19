@@ -20,5 +20,6 @@ class EmployeeService(private val repository: EmployeeRepository) {
 
     fun findAll(): List<EmployeesDocument> = repository.findAll()
 
+    fun findById(id: String): EmployeesDocument? = repository.findById(id).orElse(null)
 
 }
