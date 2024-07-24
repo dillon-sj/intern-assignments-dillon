@@ -26,19 +26,40 @@ div {
     margin-right: 30%;
 }
 
-#todo-list {
-    list-style: none;
-    padding: 0;
+#list-holder {
+    margin-top: 5%;
+    width: 100%;
     display: flex;
     justify-content: center;
 }
 
-#todo-list li {
-    background: #fff;
-    margin: 5px 0;
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px;
+}
+
+li {
+    background: #f9f9f9;
+    margin-bottom: 10px; /* Space between items */
+    margin-left: 10px;
     padding: 10px;
+    border-radius: 5px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    width: 50%;
+}
+
+.delete-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px;
+    margin-left: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background: #c82333;
 }
