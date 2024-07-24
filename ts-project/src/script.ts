@@ -1,37 +1,38 @@
 interface Todo {
     id: number;
-    title: string;
+    text: string;
     completed: boolean;
 }
 
 const todos: Todo[] = [];
 
-const newTodo = document.querySelector(".new-todo") as HTMLInputElement;
-const addTodoBtn = document.querySelector(".add-todo") as HTMLButtonElement;
-const todoList = document.querySelector(".todo-list") as HTMLUListElement;
+const newTodoInput = document.getElementById("new-todo") as HTMLInputElement;
+const addTodoButton = document.getElementById("add-todo") as HTMLButtonElement;
+const todoList = document.getElementById("todo-list") as HTMLUListElement;
 
-addTodoBtn.addEventListener("click", () => {
-    const title = newTodo.value.trim();
-    if (title != "") {
-        addTodo(title);
-        newTodo.value = "";
+addTodoButton.addEventListener("click", () => {
+    const text = newTodoInput.value.trim();
+    if (text !== "") {
+        addTodo(text);
+        newTodoInput.value = "";
     }
 });
 
-let addTodo = (title: string) => {
-    const todo: Todo = {
+function addTodo(text: string): void {
+    const newTodo: Todo = {
         id: Date.now(),
-        title: title,
+        text: text,
         completed: false,
     };
-    todos.push(todo);
-    renderTodo();
-};
+    todos.push(newTodo);
+    renderTodos();
+}
 
-let renderTodo = (): void => {
+function renderTodos(): void {
     todoList.innerHTML = "";
     todos.forEach((todo) => {
         const li = document.createElement("li");
-        li.textContent = todo.title;
+        li.textContent = todo.text;
+        todoList.appendChild(li);
     });
-};
+}

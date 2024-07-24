@@ -1,27 +1,29 @@
-var todos = [];
-var newTodo = document.querySelector(".new-todo");
-var addTodoBtn = document.querySelector(".add-todo");
-var todoList = document.querySelector(".todo-list");
-addTodoBtn.addEventListener("click", function () {
-    var title = newTodo.value.trim();
-    if (title != "") {
-        addTodo(title);
-        newTodo.value = "";
+"use strict";
+const todos = [];
+const newTodoInput = document.getElementById("new-todo");
+const addTodoButton = document.getElementById("add-todo");
+const todoList = document.getElementById("todo-list");
+addTodoButton.addEventListener("click", () => {
+    const text = newTodoInput.value.trim();
+    if (text !== "") {
+        addTodo(text);
+        newTodoInput.value = "";
     }
 });
-var addTodo = function (title) {
-    var todo = {
+function addTodo(text) {
+    const newTodo = {
         id: Date.now(),
-        title: title,
+        text: text,
         completed: false,
     };
-    todos.push(todo);
-    renderTodo();
-};
-var renderTodo = function () {
+    todos.push(newTodo);
+    renderTodos();
+}
+function renderTodos() {
     todoList.innerHTML = "";
-    todos.forEach(function (todo) {
-        var li = document.createElement("li");
-        li.textContent = todo.title;
+    todos.forEach((todo) => {
+        const li = document.createElement("li");
+        li.textContent = todo.text;
+        todoList.appendChild(li);
     });
-};
+}
