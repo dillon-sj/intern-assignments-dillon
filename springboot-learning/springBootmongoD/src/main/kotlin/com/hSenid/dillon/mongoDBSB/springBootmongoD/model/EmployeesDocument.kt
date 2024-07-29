@@ -22,7 +22,7 @@ data class EmployeesDocument(
     val employee_first_name: String = "Unknown",
     val employee_last_name: String = "Unknown",
     val employee_gender: String = "Unknown",
-    val dob: LocalDate = LocalDate.now(),
+    val dob: String = "yyyy-mm-dd",
     val designation: String = "Employee",
     val employee_address: EmployeeAddress = EmployeeAddress(),
     val email: String = "unknown@example.com",
@@ -30,7 +30,7 @@ data class EmployeesDocument(
     val coe: String = "Unknown",
     val faction: String = "Unknown",
     val sbu: List<String> = emptyList(),
-    val joined_date: LocalDate = LocalDate.now(),
+    val joined_date: String = "yyyy-mm-dd",
     val badges: List<EmployeeBadge> = emptyList(),
 )
 
@@ -44,5 +44,5 @@ data class EmployeeAddress(
 data class EmployeeBadge(
     val project: String = "Unknown Project",
     val badge: String = "No Badge",
-    val received_on: LocalDate = LocalDate.now(),
+    val received_on: String = "yyyy-mm-dd",
 )

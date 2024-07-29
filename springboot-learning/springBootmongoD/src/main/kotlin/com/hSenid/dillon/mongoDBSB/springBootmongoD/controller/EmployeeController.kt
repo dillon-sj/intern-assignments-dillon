@@ -52,8 +52,10 @@ class EmployeeController(private val employeeService: EmployeeService) {
     }
 
     @PostMapping
-    fun createEmployee(@RequestBody employee: EmployeesDocument): EmployeesDocument = employeeService.save(employee)
-
+    fun createEmployee(@RequestBody employee: EmployeesDocument): ResponseEntity<EmployeesDocument> {
+        val savedEmployee = employeeService.save(employee)
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedEmployee)
+    }
     @PutMapping("/{id}")
     fun updateEmployee(
         @PathVariable id: String,
