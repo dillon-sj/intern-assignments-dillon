@@ -25,17 +25,19 @@ class EmployeeController(private val employeeService: EmployeeService) {
     fun handleNotFound(e: NoSuchElementException): ResponseEntity<String> =
         ResponseEntity(e.message, HttpStatus.NOT_FOUND)
 
+
     @ExceptionHandler(IllegalArgumentException::class)
     fun handleBadRequest(e: IllegalArgumentException): ResponseEntity<String> =
         ResponseEntity(e.message, HttpStatus.BAD_REQUEST)
 
     @GetMapping
     fun getAllEmployees(): ResponseEntity<List<EmployeesDocument>> {
-        val employees = employeeService.findAll()
+        val employees = employeeService.findAllEmployee()
         return if (employees != null) {
             ResponseEntity.ok(employees)
         } else {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(emptyList<EmployeesDocument>())
+//            ResponseEntity.status(HttpStatus.NOT_FOUND).body(emptyList<EmployeesDocument>())
+            throw NoSuchElementException("${HttpStatus.NOT_FOUND}\nNo employees found")
         }
     }
 
@@ -45,7 +47,7 @@ class EmployeeController(private val employeeService: EmployeeService) {
         return if (employee != null) {
             ResponseEntity.ok(employee)
         } else {
-            throw NoSuchElementException("No account found with employee id $id")
+            throw NoSuchElementException("${HttpStatus.NOT_FOUND}\nNo Employee with found with id $id ")
         }
     }
 
@@ -53,17 +55,26 @@ class EmployeeController(private val employeeService: EmployeeService) {
     fun createEmployee(@RequestBody employee: EmployeesDocument): EmployeesDocument = employeeService.save(employee)
 
     @PutMapping("/{id}")
-    fun updateEmployee(@PathVariable id: String, @RequestBody updatedEmployee: EmployeesDocument): ResponseEntity<EmployeesDocument> {
+    fun updateEmployee(
+        @PathVariable id: String,
+        @RequestBody updatedEmployee: EmployeesDocument,
+    ): ResponseEntity<EmployeesDocument> {
         val updated = employeeService.update(id, updatedEmployee)
         return if (updated != null) {
             ResponseEntity.ok(updated)
         } else {
-            ResponseEntity.notFound().build()
+            throw NoSuchElementException("${HttpStatus.NOT_FOUND}\nNo Employee found with id $id")
         }
     }
 
     @DeleteMapping("/{id}")
-    fun deleteEmployee(@PathVariable id: String) = employeeService.deleteById(id)
-
+    fun deleteEmployee(@PathVariable id: String): ResponseEntity<Void> {
+        return if (employeeService.findById(id) != null) {
+            employeeService.deleteById(id)
+            ResponseEntity.noContent().build()
+        } else {
+            throw NoSuchElementException("${HttpStatus.NOT_FOUND}\nNo Employee found with id $id")
+        }
+    }
 
 }

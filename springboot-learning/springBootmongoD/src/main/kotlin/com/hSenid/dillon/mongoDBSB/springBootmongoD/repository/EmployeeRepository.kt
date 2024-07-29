@@ -17,4 +17,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface EmployeeRepository : MongoRepository<EmployeesDocument, String> {
+
 }

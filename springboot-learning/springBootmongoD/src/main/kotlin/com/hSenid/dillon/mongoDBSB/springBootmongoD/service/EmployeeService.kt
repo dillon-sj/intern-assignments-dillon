@@ -18,15 +18,24 @@ import org.springframework.stereotype.Service
 @Service
 class EmployeeService(private val employeeRepository: EmployeeRepository) {
 
-    fun findAll(): List<EmployeesDocument> = employeeRepository.findAll()
+    fun findAllEmployee(): List<EmployeesDocument> = employeeRepository.findAll()
 
     fun findById(employee_id: String): EmployeesDocument? = employeeRepository.findById(employee_id).orElse(null)
 
     fun save(employee: EmployeesDocument): EmployeesDocument = employeeRepository.save(employee)
 
+//    @Throws(EmployeeExistsException::class)
+//    fun save(employee: EmployeesDocument): EmployeesDocument {
+//        val existingEmployee = findByEmployeeId(employee.employee_id)
+//        if (existingEmployee != null) {
+//            throw EmployeeExistsException("Employee with ID ${employee.employee_id} already exists.")
+//        }
+//        return employeeRepository.save(employee)
+//    }
+
     fun update(id: String, updatedEmployee: EmployeesDocument): EmployeesDocument? {
         return if (employeeRepository.existsById(id)) {
-            val employeeToUpdate = updatedEmployee.copy(id = id) 
+            val employeeToUpdate = updatedEmployee.copy(id = id)
             employeeRepository.save(employeeToUpdate)
         } else {
             null
@@ -36,3 +45,5 @@ class EmployeeService(private val employeeRepository: EmployeeRepository) {
     fun deleteById(id: String) = employeeRepository.deleteById(id)
 
 }
+
+//class EmployeeExistsException(message: String) : RuntimeException(message)
