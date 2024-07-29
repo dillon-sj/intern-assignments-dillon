@@ -26,7 +26,7 @@ class EmployeeService(private val employeeRepository: EmployeeRepository) {
 
     fun update(id: String, updatedEmployee: EmployeesDocument): EmployeesDocument? {
         return if (employeeRepository.existsById(id)) {
-            val employeeToUpdate = updatedEmployee.copy(id = id) // Ensure the ID is preserved
+            val employeeToUpdate = updatedEmployee.copy(id = id) 
             employeeRepository.save(employeeToUpdate)
         } else {
             null

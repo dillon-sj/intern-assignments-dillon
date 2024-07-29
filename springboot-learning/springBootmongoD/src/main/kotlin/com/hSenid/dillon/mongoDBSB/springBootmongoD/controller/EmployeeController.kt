@@ -53,8 +53,13 @@ class EmployeeController(private val employeeService: EmployeeService) {
     fun createEmployee(@RequestBody employee: EmployeesDocument): EmployeesDocument = employeeService.save(employee)
 
     @PutMapping("/{id}")
-    fun updateEmployee(@PathVariable id: String, @RequestBody updatedEmployee: EmployeesDocument): EmployeesDocument? {
-        return employeeService.update(id, updatedEmployee)
+    fun updateEmployee(@PathVariable id: String, @RequestBody updatedEmployee: EmployeesDocument): ResponseEntity<EmployeesDocument> {
+        val updated = employeeService.update(id, updatedEmployee)
+        return if (updated != null) {
+            ResponseEntity.ok(updated)
+        } else {
+            ResponseEntity.notFound().build()
+        }
     }
 
     @DeleteMapping("/{id}")
