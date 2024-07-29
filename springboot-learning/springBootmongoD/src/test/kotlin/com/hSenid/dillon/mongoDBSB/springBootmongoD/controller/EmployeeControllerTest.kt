@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
 import com.hSenid.dillon.mongoDBSB.springBootmongoD.model.EmployeesDocument
+import org.springframework.test.web.servlet.delete
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -134,4 +135,29 @@ internal class EmployeeControllerTest @Autowired constructor(
 
     }
 
+    @Nested
+    @DisplayName("DELETE /api/employees/{id}")
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+    inner class DeleteExistingEmployee{
+
+        @Test
+        fun `should delete employee with given employee number`() {
+            //given
+            val employeeId = "5e4d608291b6134a75045ecf"
+
+
+            //when/then
+            mockMvc.delete("$baseUrl/$employeeId")
+                .andDo { print() }
+                .andExpect {
+                    status { isNoContent() }
+                }
+
+            mockMvc.get("$baseUrl/$employeeId")
+                .andExpect { status { isNotFound() } }
+
+
+        }
+
+    }
 }
