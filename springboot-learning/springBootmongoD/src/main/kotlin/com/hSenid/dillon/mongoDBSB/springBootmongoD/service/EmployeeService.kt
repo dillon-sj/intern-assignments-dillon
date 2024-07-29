@@ -24,13 +24,15 @@ class EmployeeService(private val employeeRepository: EmployeeRepository) {
 
     fun save(employee: EmployeesDocument): EmployeesDocument = employeeRepository.save(employee)
 
+    fun update(id: String, updatedEmployee: EmployeesDocument): EmployeesDocument? {
+        return if (employeeRepository.existsById(id)) {
+            val employeeToUpdate = updatedEmployee.copy(id = id) // Ensure the ID is preserved
+            employeeRepository.save(employeeToUpdate)
+        } else {
+            null
+        }
+    }
+
     fun deleteById(id: String) = employeeRepository.deleteById(id)
 
-//    fun update(id: String, employee: EmployeesDocument): EmployeesDocument? {
-//        if (!employeeRepository.existsById(id)) {
-//            return null
-//        }
-//        val updatedEmployee = employee.copy(id = id)
-//        return employeeRepository.save(updatedEmployee)
-//    }
 }
