@@ -17,5 +17,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface EmployeeRepository : MongoRepository<EmployeesDocument, String> {
-    // Custom query methods can be defined here if needed
+
 }

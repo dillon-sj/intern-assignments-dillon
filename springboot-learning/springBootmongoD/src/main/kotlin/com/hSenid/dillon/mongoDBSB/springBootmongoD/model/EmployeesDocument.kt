@@ -17,32 +17,31 @@ import java.time.LocalDate
 
 @Document(collection = "Employees")
 data class EmployeesDocument(
-    @Id val id: String? = null,
-    val employeeId: String?,
-    val employeeFirstName: String?,
-    val employeeLastName: String?,
-    val employeeGender: String?,
-    val dob: LocalDate?,
-    val designation: String?,
-    val employeeAddress: EmployeeAddress?,
-    val email: String?,
-    val mobileNumber: String?,
-    val coe: String?,
-    val faction: String?,
-    val sbu: List<String>?,
-    val joinedDate: LocalDate?,
-    val badges: List<EmployeeBadge>?
+    val employee_id: String = "UNKNOWN_ID",
+    val employee_first_name: String = "Unknown",
+    val employee_last_name: String = "Unknown",
+    val employee_gender: String = "Unknown",
+    val dob: LocalDate = LocalDate.now(),
+    val designation: String = "Employee",
+    val employee_address: EmployeeAddress = EmployeeAddress(),
+    val email: String = "unknown@example.com",
+    val mobile_number: String = "000-000-0000",
+    val coe: String = "Unknown",
+    val faction: String = "Unknown",
+    val sbu: List<String> = emptyList(),
+    val joined_date: LocalDate = LocalDate.now(),
+    val badges: List<EmployeeBadge> = emptyList(),
 )
 
 data class EmployeeAddress(
-    val building: String?,
-    val street: String?,
-    val city: String?,
-    val district: String?
+    val building: String = "Unknown Building",
+    val street: String = "Unknown Street",
+    val city: String = "Unknown City",
+    val district: String = "Unknown District",
 )
 
 data class EmployeeBadge(
-    val project: String?,
-    val badge: String?,
-    val receivedOn: LocalDate?
+    val project: String = "Unknown Project",
+    val badge: String = "No Badge",
+    val received_on: LocalDate = LocalDate.now(),
 )

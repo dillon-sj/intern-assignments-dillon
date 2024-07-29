@@ -7,16 +7,15 @@ import org.springframework.web.bind.annotation.RestController
 
 @SpringBootApplication
 @RestController
-class SpringBootmongoDApplication{
+class SpringBootmongoDApplication {
 
-	@GetMapping("api/hello/")
-	fun hello() = "Helloing there"
+    @GetMapping("api/hello/")
+    fun hello() = "Helloing there"
 
 
 }
 
 
-
 fun main(args: Array<String>) {
-	runApplication<SpringBootmongoDApplication>(*args)
+    runApplication<SpringBootmongoDApplication>(*args)
 }

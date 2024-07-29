@@ -17,19 +17,24 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/employees")
-class EmployeeController(private val service: EmployeeService) {
+class EmployeeController(private val employeeService: EmployeeService) {
 
     @GetMapping
-    fun getAllEmployees(): List<EmployeesDocument> = service.findAll()
+    fun getAllEmployees(): List<EmployeesDocument> = employeeService.findAll()
 
     @GetMapping("/{id}")
-    fun getEmployeeById(@PathVariable id: String): EmployeesDocument? = service.findById(id)
+    fun getEmployeeById(@PathVariable id: String): EmployeesDocument? = employeeService.findById(id)
 
     @PostMapping
-    fun createEmployee(@RequestBody employee: EmployeesDocument): EmployeesDocument = service.save(employee)
+    fun createEmployee(@RequestBody employee: EmployeesDocument): EmployeesDocument = employeeService.save(employee)
+
+//    @PutMapping("/{id}")
+//    fun updateEmployee(@PathVariable id: String, @RequestBody employee: EmployeesDocument): EmployeesDocument? {
+//        return employeeService.update(id, employee)
+//    }
 
     @DeleteMapping("/{id}")
-    fun deleteEmployee(@PathVariable id: String) = service.deleteById(id)
+    fun deleteEmployee(@PathVariable id: String) = employeeService.deleteById(id)
 
 
 }

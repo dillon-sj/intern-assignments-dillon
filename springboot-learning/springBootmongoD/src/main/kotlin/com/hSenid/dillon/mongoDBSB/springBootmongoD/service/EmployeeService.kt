@@ -16,14 +16,21 @@ import com.hSenid.dillon.mongoDBSB.springBootmongoD.repository.EmployeeRepositor
 import org.springframework.stereotype.Service
 
 @Service
-class EmployeeService(private val repository: EmployeeRepository) {
+class EmployeeService(private val employeeRepository: EmployeeRepository) {
 
-    fun findAll(): List<EmployeesDocument> = repository.findAll()
+    fun findAll(): List<EmployeesDocument> = employeeRepository.findAll()
 
-    fun findById(id: String): EmployeesDocument? = repository.findById(id).orElse(null)
+    fun findById(employee_id: String): EmployeesDocument? = employeeRepository.findById(employee_id).orElse(null)
 
-    fun save(employee: EmployeesDocument): EmployeesDocument = repository.save(employee)
+    fun save(employee: EmployeesDocument): EmployeesDocument = employeeRepository.save(employee)
 
-    fun deleteById(id: String) = repository.deleteById(id)
+    fun deleteById(id: String) = employeeRepository.deleteById(id)
 
+//    fun update(id: String, employee: EmployeesDocument): EmployeesDocument? {
+//        if (!employeeRepository.existsById(id)) {
+//            return null
+//        }
+//        val updatedEmployee = employee.copy(id = id)
+//        return employeeRepository.save(updatedEmployee)
+//    }
 }
