@@ -43,6 +43,10 @@ class EmployeeController(private val employeeService: EmployeeService) {
         return ResponseEntity(e.message, HttpStatus.CONFLICT)
     }
 
+    private fun logAndThrow(exception: Exception): Nothing {
+        logger.error(exception.message)
+        throw exception
+    }
 
     @GetMapping
     fun getAllEmployees(): ResponseEntity<List<EmployeesDocument>> {
@@ -51,9 +55,7 @@ class EmployeeController(private val employeeService: EmployeeService) {
             logger.info("Successfully fetched all employees")
             ResponseEntity.ok(employees)
         } else {
-            val errorMessage = "${HttpStatus.NOT_FOUND}\nNo employees found"
-            logger.error(errorMessage)
-            throw NoSuchElementException(errorMessage)
+            logAndThrow(NoSuchElementException("${HttpStatus.NOT_FOUND}\nNo employees found"))
         }
     }
 
@@ -64,18 +66,14 @@ class EmployeeController(private val employeeService: EmployeeService) {
             logger.info("Successfully fetched employee with id $id")
             ResponseEntity.ok(employee)
         } else {
-            val errorMessage = "${HttpStatus.NOT_FOUND}\nNo Employee found with id $id "
-            logger.error(errorMessage)
-            throw NoSuchElementException(errorMessage)
+            logAndThrow(NoSuchElementException("${HttpStatus.NOT_FOUND}\nNo Employee found with id $id"))
         }
     }
 
     @PostMapping
     fun createEmployee(@RequestBody employee: EmployeesDocument): ResponseEntity<EmployeesDocument> {
         if (employee.id != null && employeeService.findById(employee.id) != null) {
-            val errorMessage = "An employee with ID ${employee.id} already exists."
-            logger.error(errorMessage)
-            throw IllegalStateException(errorMessage)
+            logAndThrow(IllegalStateException("An employee with ID ${employee.id} already exists."))
         }
         val savedEmployee = employeeService.save(employee)
         logger.info("Successfully created employee with id ${employee.id}")
@@ -88,9 +86,7 @@ class EmployeeController(private val employeeService: EmployeeService) {
         @RequestBody updatedEmployee: EmployeesDocument,
     ): ResponseEntity<EmployeesDocument> {
         if (id.isEmpty()) {
-            val errorMessage = "Employee ID must be provided"
-            logger.error(errorMessage)
-            throw IllegalArgumentException(errorMessage)
+            logAndThrow(IllegalArgumentException("Employee ID must be provided"))
         }
 
         val updated = employeeService.update(id, updatedEmployee)
@@ -98,11 +94,10 @@ class EmployeeController(private val employeeService: EmployeeService) {
             logger.info("Successfully updated employee with id $id")
             ResponseEntity.ok(updated)
         } else {
-            val errorMessage = "No Employee found with id $id"
-            logger.error(errorMessage)
-            throw NoSuchElementException(errorMessage)
+            logAndThrow(NoSuchElementException("No Employee found with id $id"))
         }
     }
+
 
     @DeleteMapping("/{id}")
     fun deleteEmployee(@PathVariable id: String): ResponseEntity<Void> {
@@ -111,9 +106,7 @@ class EmployeeController(private val employeeService: EmployeeService) {
             logger.info("Successfully deleted employee with id $id")
             ResponseEntity.noContent().build()
         } else {
-            val errorMessage = "${HttpStatus.NOT_FOUND}\nNo Employee found with id $id"
-            logger.error(errorMessage)
-            throw NoSuchElementException(errorMessage)
+            logAndThrow(NoSuchElementException("${HttpStatus.NOT_FOUND}\nNo Employee found with id $id"))
         }
     }
 
