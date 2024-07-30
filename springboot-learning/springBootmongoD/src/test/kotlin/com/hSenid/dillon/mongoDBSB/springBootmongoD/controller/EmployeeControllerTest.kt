@@ -11,10 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
-import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.delete
-import org.springframework.test.web.servlet.get
-import org.springframework.test.web.servlet.post
+import org.springframework.test.web.servlet.*
+import java.util.*
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -88,8 +86,9 @@ internal class EmployeeControllerTest @Autowired constructor(
         @Test
         fun `should add the new employee`() {
             // given
+            val uniqueId = UUID.randomUUID().toString()
             val newEmployee = EmployeesDocument(
-                id = "5e4d604991b6134a75045ecd",
+                id = uniqueId,
                 employee_id = "001001",
                 employee_first_name = "Chirantha",
                 employee_last_name = "Pitigala",
@@ -183,7 +182,80 @@ internal class EmployeeControllerTest @Autowired constructor(
     @DisplayName("PUT /api/employees/{id}")
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class PutUpdateEmployee {
+        
+        @Test
+        fun `should update the employee`() {
+            //given
+            val existingId = "5e4d604991b6134a75045ecd"
+            val existingEmployee = EmployeesDocument(
+                id = existingId,
+                employee_id = "001001",
+                employee_first_name = "Chirantha",
+                employee_last_name = "Pitigala",
+                employee_gender = "male",
+                dob = "1985-03-03",
+                designation = "Deputy General Manager",
+                employee_address = EmployeeAddress(
+                    building = "No. 10",
+                    street = "Perera Avenue",
+                    city = "Nugegoda",
+                    district = "Colombo"
+                ),
+                email = "chirantha@hsenidmobile.com",
+                mobile_number = "+94717877672",
+                coe = "Implementation",
+                faction = "YAKSHA",
+                sbu = listOf("SYSTEM IMPLEMENTATION"),
+                joined_date = "2008-03-03",
+                badges = emptyList()
+            )
 
+            val updatedEmployee = EmployeesDocument(
+                id = existingId,
+                employee_id = "001007",
+                employee_first_name = "Vanuja",
+                employee_last_name = "Pitigala",
+                employee_gender = "male",
+                dob = "1985-03-03",
+                designation = "Deputy General Manager",
+                employee_address = EmployeeAddress(
+                    building = "No. 10",
+                    street = "Perera Avenue",
+                    city = "Nugegoda",
+                    district = "Colombo"
+                ),
+                email = "chirantha@hsenidmobile.com",
+                mobile_number = "+94717877672",
+                coe = "Implementation",
+                faction = "YAKSHA",
+                sbu = listOf("SYSTEM IMPLEMENTATION"),
+                joined_date = "2008-03-03",
+                badges = emptyList()
+            )
+
+            //when
+            val performPut = mockMvc.put("/api/employees/$existingId") {
+                contentType = MediaType.APPLICATION_JSON
+                content = objectMapper.writeValueAsString(updatedEmployee)
+            }
+            
+            //then
+            // then
+            performPut
+                .andDo { print() }
+                .andExpect {
+                    status { isOk() }
+                    content {
+                        contentType(MediaType.APPLICATION_JSON)
+                        json(objectMapper.writeValueAsString(updatedEmployee))
+                    }
+                }
+            
+            
+        }
+        
+            
+        
     
     }
 
