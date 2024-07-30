@@ -30,6 +30,10 @@ class EmployeeController(private val employeeService: EmployeeService) {
     fun handleBadRequest(e: IllegalArgumentException): ResponseEntity<String> =
         ResponseEntity(e.message, HttpStatus.BAD_REQUEST)
 
+    @ExceptionHandler(IllegalStateException::class)
+    fun handleConflict(e: IllegalStateException): ResponseEntity<String> =
+        ResponseEntity(e.message, HttpStatus.CONFLICT)
+
     @GetMapping
     fun getAllEmployees(): ResponseEntity<List<EmployeesDocument>> {
         val employees = employeeService.findAllEmployee()
@@ -53,14 +57,35 @@ class EmployeeController(private val employeeService: EmployeeService) {
 
     @PostMapping
     fun createEmployee(@RequestBody employee: EmployeesDocument): ResponseEntity<EmployeesDocument> {
+        if (employee.id != null && employeeService.findById(employee.id) != null) {
+            throw IllegalStateException("An employee with ID ${employee.id} already exists.")
+        }
         val savedEmployee = employeeService.save(employee)
         return ResponseEntity.status(HttpStatus.CREATED).body(savedEmployee)
     }
+
+//    @PutMapping("/{id}")
+//    fun updateEmployee(
+//        @PathVariable id: String,
+//        @RequestBody updatedEmployee: EmployeesDocument,
+//    ): ResponseEntity<EmployeesDocument> {
+//        val updated = employeeService.update(id, updatedEmployee)
+//        return if (updated != null) {
+//            ResponseEntity.ok(updated)
+//        } else {
+//            throw NoSuchElementException("${HttpStatus.NOT_FOUND}\nNo Employee found with id $id")
+//        }
+//    }
+
+
     @PutMapping("/{id}")
     fun updateEmployee(
-        @PathVariable id: String,
-        @RequestBody updatedEmployee: EmployeesDocument,
+        @PathVariable id: String?,
+        @RequestBody updatedEmployee: EmployeesDocument
     ): ResponseEntity<EmployeesDocument> {
+        if (id == null || id.isEmpty()) {
+            throw IllegalArgumentException("Employee ID is required")
+        }
         val updated = employeeService.update(id, updatedEmployee)
         return if (updated != null) {
             ResponseEntity.ok(updated)

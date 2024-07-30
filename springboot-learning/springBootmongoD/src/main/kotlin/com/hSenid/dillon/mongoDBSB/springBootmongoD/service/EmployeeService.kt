@@ -20,17 +20,20 @@ class EmployeeService(private val employeeRepository: EmployeeRepository) {
 
     fun findAllEmployee(): List<EmployeesDocument> = employeeRepository.findAll()
 
-    fun findById(employee_id: String): EmployeesDocument? = employeeRepository.findById(employee_id).orElse(null)
+    fun findById(id: String): EmployeesDocument? = employeeRepository.findById(id).orElse(null)
+
+    fun existsById(id: String): Boolean = employeeRepository.existsById(id)
 
     fun save(employee: EmployeesDocument): EmployeesDocument = employeeRepository.save(employee)
 
-//    @Throws(EmployeeExistsException::class)
-//    fun save(employee: EmployeesDocument): EmployeesDocument {
-//        val existingEmployee = findByEmployeeId(employee.employee_id)
-//        if (existingEmployee != null) {
-//            throw EmployeeExistsException("Employee with ID ${employee.employee_id} already exists.")
+
+//    fun update(id: String, updatedEmployee: EmployeesDocument): EmployeesDocument? {
+//        return if (employeeRepository.existsById(id)) {
+//            val employeeToUpdate = updatedEmployee.copy(id = id)
+//            employeeRepository.save(employeeToUpdate)
+//        } else {
+//            null
 //        }
-//        return employeeRepository.save(employee)
 //    }
 
     fun update(id: String, updatedEmployee: EmployeesDocument): EmployeesDocument? {
@@ -46,4 +49,3 @@ class EmployeeService(private val employeeRepository: EmployeeRepository) {
 
 }
 
-//class EmployeeExistsException(message: String) : RuntimeException(message)
