@@ -2,6 +2,7 @@ package com.hSenid.dillon.mongoDBSB.springBootmongoD.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hSenid.dillon.mongoDBSB.springBootmongoD.model.EmployeeAddress
+import com.hSenid.dillon.mongoDBSB.springBootmongoD.model.EmployeesDocument
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -11,10 +12,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.delete
 import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
-import com.hSenid.dillon.mongoDBSB.springBootmongoD.model.EmployeesDocument
-import org.springframework.test.web.servlet.delete
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -132,13 +132,65 @@ internal class EmployeeControllerTest @Autowired constructor(
                 .andExpect { content { json(objectMapper.writeValueAsString(newEmployee)) } }
         }
 
+        @Test
+        fun `should return a BAD REQUEST when ID already exists`() {
+            //given
+            val existingEmployee = EmployeesDocument(
+                id = "5e4d604991b6134a75045ecd",
+                employee_id = "001001",
+                employee_first_name = "Chirantha",
+                employee_last_name = "Pitigala",
+                employee_gender = "male",
+                dob = "1985-03-03",
+                designation = "Deputy General Manager",
+                employee_address = EmployeeAddress(
+                    building = "No. 10",
+                    street = "Perera Avenue",
+                    city = "Nugegoda",
+                    district = "Colombo"
+                ),
+                email = "chirantha@hsenidmobile.com",
+                mobile_number = "+94717877672",
+                coe = "Implementation",
+                faction = "YAKSHA",
+                sbu = listOf("SYSTEM IMPLEMENTATION"),
+                joined_date = "2008-03-03",
+                badges = emptyList()
+            )
 
+
+            // when
+            val performPost = mockMvc.post(baseUrl) {
+                contentType = MediaType.APPLICATION_JSON
+                content = objectMapper.writeValueAsString(existingEmployee)
+            }
+
+            // then
+            performPost
+                .andDo { print() }
+                .andExpect {
+                    status { isConflict() }
+                }
+
+
+        }
+
+
+    }
+    
+    
+    @Nested
+    @DisplayName("PUT /api/employees/{id}")
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+    inner class PutUpdateEmployee {
+
+    
     }
 
     @Nested
     @DisplayName("DELETE /api/employees/{id}")
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-    inner class DeleteExistingEmployee{
+    inner class DeleteExistingEmployee {
 
         @Test
         fun `should delete employee with given employee number`() {
