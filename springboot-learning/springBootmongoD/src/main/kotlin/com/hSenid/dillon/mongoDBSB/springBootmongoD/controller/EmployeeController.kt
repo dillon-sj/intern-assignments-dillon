@@ -13,6 +13,7 @@ package com.hSenid.dillon.mongoDBSB.springBootmongoD.controller
 
 import com.hSenid.dillon.mongoDBSB.springBootmongoD.model.EmployeesDocument
 import com.hSenid.dillon.mongoDBSB.springBootmongoD.service.EmployeeService
+import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api/employees")
 class EmployeeController(private val employeeService: EmployeeService) {
+
+    private val logger = LoggerFactory.getLogger(EmployeeController::class.java)
 
     @ExceptionHandler(NoSuchElementException::class)
     fun handleNotFound(e: NoSuchElementException): ResponseEntity<String> =
@@ -34,13 +37,13 @@ class EmployeeController(private val employeeService: EmployeeService) {
     fun handleConflict(e: IllegalStateException): ResponseEntity<String> =
         ResponseEntity(e.message, HttpStatus.CONFLICT)
 
+
     @GetMapping
     fun getAllEmployees(): ResponseEntity<List<EmployeesDocument>> {
         val employees = employeeService.findAllEmployee()
         return if (employees != null) {
             ResponseEntity.ok(employees)
         } else {
-//            ResponseEntity.status(HttpStatus.NOT_FOUND).body(emptyList<EmployeesDocument>())
             throw NoSuchElementException("${HttpStatus.NOT_FOUND}\nNo employees found")
         }
     }
@@ -64,33 +67,21 @@ class EmployeeController(private val employeeService: EmployeeService) {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedEmployee)
     }
 
-//    @PutMapping("/{id}")
-//    fun updateEmployee(
-//        @PathVariable id: String,
-//        @RequestBody updatedEmployee: EmployeesDocument,
-//    ): ResponseEntity<EmployeesDocument> {
-//        val updated = employeeService.update(id, updatedEmployee)
-//        return if (updated != null) {
-//            ResponseEntity.ok(updated)
-//        } else {
-//            throw NoSuchElementException("${HttpStatus.NOT_FOUND}\nNo Employee found with id $id")
-//        }
-//    }
-
-
     @PutMapping("/{id}")
     fun updateEmployee(
-        @PathVariable id: String?,
-        @RequestBody updatedEmployee: EmployeesDocument
+        @PathVariable id: String,
+        @RequestBody updatedEmployee: EmployeesDocument,
     ): ResponseEntity<EmployeesDocument> {
-        if (id == null || id.isEmpty()) {
-            throw IllegalArgumentException("Employee ID is required")
+        if (id.isEmpty()) {
+            throw IllegalArgumentException("Employee ID must be provided")
         }
+
         val updated = employeeService.update(id, updatedEmployee)
         return if (updated != null) {
+            logger.info("Successfully updated employee with id $id")
             ResponseEntity.ok(updated)
         } else {
-            throw NoSuchElementException("${HttpStatus.NOT_FOUND}\nNo Employee found with id $id")
+            throw NoSuchElementException("No Employee found with id $id")
         }
     }
 
