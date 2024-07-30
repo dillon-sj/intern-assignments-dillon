@@ -28,11 +28,13 @@ internal class EmployeeControllerTest @Autowired constructor(
     inner class GetEmployees {
         @Test
         fun `should return all employees`() {
+            //given
+            val employeeById = "5e4d604991b6134a75045ecd"
             //when
             mockMvc.get(baseUrl).andDo { print() }.andExpect {
                 status { isOk() }
                 content { contentType(MediaType.APPLICATION_JSON) }
-                jsonPath("$[0].id") { value("5e4d604991b6134a75045ecd") }
+                jsonPath("$[0].id") { value(employeeById) }
 
             }
         }
