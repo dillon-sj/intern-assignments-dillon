@@ -22,6 +22,6 @@ interface EmployeeRepository : MongoRepository<EmployeesDocument, String> {
 
     fun findByEmployeeId (employeeId: String): EmployeesDocument?
 
-
+    fun deleteByEmployeeId(employeeId: String): EmployeesDocument?
 
 }

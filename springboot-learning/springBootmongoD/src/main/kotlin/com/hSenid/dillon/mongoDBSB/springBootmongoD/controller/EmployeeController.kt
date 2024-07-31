@@ -99,14 +99,32 @@ class EmployeeController(private val employeeService: EmployeeService) {
     }
 
 
-    @DeleteMapping("/{id}")
-    fun deleteEmployee(@PathVariable id: String): ResponseEntity<Void> {
-        return if (employeeService.findById(id) != null) {
-            employeeService.deleteById(id)
-            logger.info("Successfully deleted employee with id $id")
-            ResponseEntity.noContent().build()
+//    @DeleteMapping("/{employeeId}")
+//    fun deleteEmployee(@PathVariable employeeId: String): ResponseEntity<Void> {
+//        val employee = employeeService.findByEmployeeId(employeeId)
+//        return if (employee != null) {
+//            employeeService.deleteById(employee.employeeId)
+//            logger.info("Successfully deleted employee with id $employeeId")
+//            ResponseEntity.noContent().build()
+//        } else {
+//            logAndThrow(NoSuchElementException("${HttpStatus.NOT_FOUND}\nNo Employee found with id $employeeId"))
+//        }
+//    }
+
+    @DeleteMapping("/{employeeId}")
+    fun deleteEmployee(@PathVariable employeeId: String): ResponseEntity<Any> {
+        val employee = employeeService.findByEmployeeId(employeeId)
+        return if (employee != null) {
+            try {
+                employeeService.deleteByEmployeeId(employeeId)
+                logger.info("Successfully deleted employee with id $employeeId")
+                ResponseEntity.ok("Successfully deleted employee with id $employeeId")
+            } catch (e: Exception) {
+                logger.error("Error deleting employee with id $employeeId: ${e.message}")
+                ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()
+            }
         } else {
-            logAndThrow(NoSuchElementException("${HttpStatus.NOT_FOUND}\nNo Employee found with id $id"))
+            logAndThrow(NoSuchElementException("${HttpStatus.NOT_FOUND}\nNo Employee found with id $employeeId"))
         }
     }
 }

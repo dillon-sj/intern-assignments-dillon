@@ -37,7 +37,10 @@ class EmployeeService(private val employeeRepository: EmployeeRepository) {
         }
     }
 
-    fun deleteById(id: String) = employeeRepository.deleteById(id)
+    fun deleteById(employeeId: String) = employeeRepository.deleteById(employeeId)
+
+    fun deleteByEmployeeId(employeeId: String): EmployeesDocument? = employeeRepository.deleteByEmployeeId(employeeId)
+
 
 
 }

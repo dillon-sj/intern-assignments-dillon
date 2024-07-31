@@ -18,7 +18,7 @@ import java.util.*
 internal class EmployeeControllerTest @Autowired constructor(
     @Autowired val mockMvc: MockMvc,
     @Autowired val objectMapper: ObjectMapper,
-    @Autowired val employeeService: EmployeeService
+    @Autowired val employeeService: EmployeeService,
 
     ) {
 
@@ -51,7 +51,7 @@ internal class EmployeeControllerTest @Autowired constructor(
         @Test
         fun `should return the employee with the given employee id`() {
             // given
-            val employeeId = "001004"
+            val employeeId = "001003"
 
             // when
             mockMvc.get("$baseUrl/$employeeId").andDo { print() }.andExpect { status { isOk() } }
@@ -157,6 +157,7 @@ internal class EmployeeControllerTest @Autowired constructor(
         }
 
     }
+
     @Nested
     @DisplayName("PUT /api/employees/{id}")
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -167,8 +168,8 @@ internal class EmployeeControllerTest @Autowired constructor(
             //given
             val existingId = "5e4d604991b6134a75045ecd"
             val existingEmployee = EmployeesDocument(
-                id = existingId,
-                employeeId = "001001",
+                id = "",
+                employeeId = existingId,
                 employeeFirstName = "Chirantha",
                 employeeLastName = "Pitigala",
                 employeeGender = "male",
@@ -239,7 +240,7 @@ internal class EmployeeControllerTest @Autowired constructor(
     }
 
     @Nested
-    @DisplayName("DELETE /api/employees/{id}")
+    @DisplayName("DELETE /api/employees/{employeeId}")
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class DeleteExistingEmployee {
 
@@ -248,9 +249,13 @@ internal class EmployeeControllerTest @Autowired constructor(
 
         @BeforeEach
         fun setup() {
+            mockMvc.delete("$baseUrl/$employeeId").andExpect {
+                status { isNoContent() }
+            }
+
             val employeeToDelete = EmployeesDocument(
-                id = employeeId,
-                employeeId = "001207",
+                id = "",
+                employeeId = employeeId,
                 employeeFirstName = "Vanuja",
                 employeeLastName = "Pitigala",
                 employeeGender = "male",
@@ -270,6 +275,8 @@ internal class EmployeeControllerTest @Autowired constructor(
             mockMvc.post(baseUrl) {
                 contentType = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(employeeToDelete)
+            }.andExpect {
+                status { isCreated() }
             }
         }
 
@@ -290,6 +297,5 @@ internal class EmployeeControllerTest @Autowired constructor(
                 status { isNotFound() }
             }
         }
-
     }
 }
