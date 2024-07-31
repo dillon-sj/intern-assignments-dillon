@@ -3,6 +3,7 @@ package com.hSenid.dillon.mongoDBSB.springBootmongoD.controller
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.hSenid.dillon.mongoDBSB.springBootmongoD.model.EmployeeAddress
 import com.hSenid.dillon.mongoDBSB.springBootmongoD.model.EmployeesDocument
+import com.hSenid.dillon.mongoDBSB.springBootmongoD.service.EmployeeService
 import org.junit.jupiter.api.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -15,8 +16,9 @@ import java.util.*
 @SpringBootTest
 @AutoConfigureMockMvc
 internal class EmployeeControllerTest @Autowired constructor(
-    val mockMvc: MockMvc,
-    val objectMapper: ObjectMapper,
+    @Autowired val mockMvc: MockMvc,
+    @Autowired val objectMapper: ObjectMapper,
+    @Autowired val employeeService: EmployeeService
 
     ) {
 
@@ -29,12 +31,12 @@ internal class EmployeeControllerTest @Autowired constructor(
         @Test
         fun `should return all employees`() {
             //given
-            val employeeById = "5e4d604991b6134a75045ecd"
+            val employeeById = "001001"
             //when
             mockMvc.get(baseUrl).andDo { print() }.andExpect {
                 status { isOk() }
                 content { contentType(MediaType.APPLICATION_JSON) }
-                jsonPath("$[0].id") { value(employeeById) }
+                jsonPath("$[0].employeeId") { value(employeeById) }
 
             }
         }
@@ -42,14 +44,14 @@ internal class EmployeeControllerTest @Autowired constructor(
     }
 
     @Nested
-    @DisplayName("GET /api/employees/{id}")
+    @DisplayName("GET /api/employees/{employeed}")
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     inner class GetEmployeeById {
 
         @Test
         fun `should return the employee with the given employee id`() {
             // given
-            val employeeId = "5e4d604991b6134a75045ecd"
+            val employeeId = "001004"
 
             // when
             mockMvc.get("$baseUrl/$employeeId").andDo { print() }.andExpect { status { isOk() } }
@@ -72,18 +74,18 @@ internal class EmployeeControllerTest @Autowired constructor(
     @Nested
     @DisplayName("POST /api/employees")
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-    inner class PostNewBank {
+    inner class PostNewEmployee {
+        private val uniqueId = UUID.randomUUID().toString()
 
         @Test
         fun `should add the new employee`() {
             // given
-            val uniqueId = UUID.randomUUID().toString()
             val newEmployee = EmployeesDocument(
-                id = uniqueId,
-                employee_id = "001001",
-                employee_first_name = "Chirantha",
-                employee_last_name = "Pitigala",
-                employee_gender = "male",
+                id = "",
+                employeeId = uniqueId,
+                employeeFirstName = "Chirantha",
+                employeeLastName = "Pitigala",
+                employeeGender = "male",
                 dob = "",
                 designation = "Deputy General Manager",
                 employee_address = EmployeeAddress(
@@ -113,7 +115,7 @@ internal class EmployeeControllerTest @Autowired constructor(
                 }
             }
 
-            mockMvc.get("$baseUrl/${newEmployee.id}")
+            mockMvc.get("$baseUrl/${newEmployee.employeeId}")
                 .andExpect { content { json(objectMapper.writeValueAsString(newEmployee)) } }
         }
 
@@ -122,10 +124,10 @@ internal class EmployeeControllerTest @Autowired constructor(
             //given
             val existingEmployee = EmployeesDocument(
                 id = "5e4d604991b6134a75045ecd",
-                employee_id = "001001",
-                employee_first_name = "Chirantha",
-                employee_last_name = "Pitigala",
-                employee_gender = "male",
+                employeeId = "001001",
+                employeeFirstName = "Chirantha",
+                employeeLastName = "Pitigala",
+                employeeGender = "male",
                 dob = "1985-03-03",
                 designation = "Deputy General Manager",
                 employee_address = EmployeeAddress(
@@ -155,8 +157,6 @@ internal class EmployeeControllerTest @Autowired constructor(
         }
 
     }
-
-
     @Nested
     @DisplayName("PUT /api/employees/{id}")
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -168,10 +168,10 @@ internal class EmployeeControllerTest @Autowired constructor(
             val existingId = "5e4d604991b6134a75045ecd"
             val existingEmployee = EmployeesDocument(
                 id = existingId,
-                employee_id = "001001",
-                employee_first_name = "Chirantha",
-                employee_last_name = "Pitigala",
-                employee_gender = "male",
+                employeeId = "001001",
+                employeeFirstName = "Chirantha",
+                employeeLastName = "Pitigala",
+                employeeGender = "male",
                 dob = "1985-03-03",
                 designation = "Deputy General Manager",
                 employee_address = EmployeeAddress(
@@ -209,10 +209,10 @@ internal class EmployeeControllerTest @Autowired constructor(
             val nonExistentId = "non-existent-id"
             val updatedEmployee = EmployeesDocument(
                 id = nonExistentId,
-                employee_id = "001007",
-                employee_first_name = "Vanuja",
-                employee_last_name = "Pitigala",
-                employee_gender = "male",
+                employeeId = "001007",
+                employeeFirstName = "Vanuja",
+                employeeLastName = "Pitigala",
+                employeeGender = "male",
                 dob = "1985-03-03",
                 designation = "Deputy General Manager",
                 employee_address = EmployeeAddress(
@@ -232,8 +232,8 @@ internal class EmployeeControllerTest @Autowired constructor(
                 contentType = MediaType.APPLICATION_JSON
                 content = objectMapper.writeValueAsString(updatedEmployee)
             }.andDo { print() }.andExpect {
-                    status { isNotFound() }
-                }
+                status { isNotFound() }
+            }
         }
 
     }
@@ -250,10 +250,10 @@ internal class EmployeeControllerTest @Autowired constructor(
         fun setup() {
             val employeeToDelete = EmployeesDocument(
                 id = employeeId,
-                employee_id = "001207",
-                employee_first_name = "Vanuja",
-                employee_last_name = "Pitigala",
-                employee_gender = "male",
+                employeeId = "001207",
+                employeeFirstName = "Vanuja",
+                employeeLastName = "Pitigala",
+                employeeGender = "male",
                 dob = "1985-03-03",
                 designation = "Deputy General Manager",
                 employee_address = EmployeeAddress(
