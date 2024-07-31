@@ -26,30 +26,30 @@ class EmployeeController(private val employeeService: EmployeeService) {
 
     @ExceptionHandler(NoSuchElementException::class)
     fun handleNotFound(e: NoSuchElementException): ResponseEntity<String> {
-        logger.error("Not Found: ${e.message}")
+        logger.error("Not Found: ${e.message}\nStacktrace: ${e.stackTrace.joinToString("\n")}", e)
         return ResponseEntity(e.message, HttpStatus.NOT_FOUND)
     }
 
-
     @ExceptionHandler(IllegalArgumentException::class)
     fun handleBadRequest(e: IllegalArgumentException): ResponseEntity<String> {
-        logger.error("Bad Request: ${e.message}")
+        logger.error("Bad Request: ${e.message}\nStacktrace: ${e.stackTrace.joinToString("\n")}", e)
         return ResponseEntity(e.message, HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler(IllegalStateException::class)
     fun handleConflict(e: IllegalStateException): ResponseEntity<String> {
-        logger.error("Conflict: ${e.message}")
+        logger.error("Conflict: ${e.message}\nStacktrace: ${e.stackTrace.joinToString("\n")}", e)
         return ResponseEntity(e.message, HttpStatus.CONFLICT)
     }
 
     private fun logAndThrow(exception: Exception): Nothing {
-        logger.error(exception.message)
+        logger.error("Exception occurred: ${exception.message}\nStacktrace: ${exception.stackTrace.joinToString("\n")}", exception)
         throw exception
     }
 
     @GetMapping
     fun getAllEmployees(): ResponseEntity<List<EmployeesDocument>> {
+        logger.info("Get all employees")
         val employees = employeeService.findAllEmployee()
         return if (employees != null) {
             logger.info("Successfully fetched all employees")
@@ -61,9 +61,10 @@ class EmployeeController(private val employeeService: EmployeeService) {
 
     @GetMapping("/{employeeId}")
     fun getByEmployeeId(@PathVariable employeeId: String): ResponseEntity<EmployeesDocument> {
+        logger.info("Fetching employee by employeeId: $employeeId")
         val employee = employeeService.findByEmployeeId(employeeId)
         return if (employee != null) {
-            logger.info("Successfully fetched employee with id $employeeId")
+            logger.info("Successfully fetched employee id - [{}]", employeeId)
             ResponseEntity.ok(employee)
         } else {
             logAndThrow(NoSuchElementException("${HttpStatus.NOT_FOUND}\nNo Employee found with id $employeeId"))
@@ -72,11 +73,12 @@ class EmployeeController(private val employeeService: EmployeeService) {
 
     @PostMapping
     fun createEmployee(@RequestBody employee: EmployeesDocument): ResponseEntity<EmployeesDocument> {
+        logger.info("Creating new employee")
         if (employeeService.findByEmployeeId(employee.employeeId) != null) {
             logAndThrow(IllegalStateException("An employee with ID ${employee.employeeId} already exists."))
         }
         val savedEmployee = employeeService.save(employee)
-        logger.info("Successfully created employee with id ${employee.employeeId}")
+        logger.info("Successfully created employee id - [{}]", employee.employeeId)
         return ResponseEntity.status(HttpStatus.CREATED).body(savedEmployee)
     }
 
@@ -91,7 +93,7 @@ class EmployeeController(private val employeeService: EmployeeService) {
 
         val updated = employeeService.update(id, updatedEmployee)
         return if (updated != null) {
-            logger.info("Successfully updated employee with id $id")
+            logger.info("Successfully updated employee id - [{}]", id)
             ResponseEntity.ok(updated)
         } else {
             logAndThrow(NoSuchElementException("No Employee found with id $id"))
@@ -99,20 +101,9 @@ class EmployeeController(private val employeeService: EmployeeService) {
     }
 
 
-//    @DeleteMapping("/{employeeId}")
-//    fun deleteEmployee(@PathVariable employeeId: String): ResponseEntity<Void> {
-//        val employee = employeeService.findByEmployeeId(employeeId)
-//        return if (employee != null) {
-//            employeeService.deleteById(employee.employeeId)
-//            logger.info("Successfully deleted employee with id $employeeId")
-//            ResponseEntity.noContent().build()
-//        } else {
-//            logAndThrow(NoSuchElementException("${HttpStatus.NOT_FOUND}\nNo Employee found with id $employeeId"))
-//        }
-//    }
-
     @DeleteMapping("/{employeeId}")
     fun deleteEmployee(@PathVariable employeeId: String): ResponseEntity<Any> {
+        logger.info("Deleting employee: $employeeId")
         val employee = employeeService.findByEmployeeId(employeeId)
         return if (employee != null) {
             try {
@@ -120,7 +111,7 @@ class EmployeeController(private val employeeService: EmployeeService) {
                 logger.info("Successfully deleted employee with id $employeeId")
                 ResponseEntity.ok("Successfully deleted employee with id $employeeId")
             } catch (e: Exception) {
-                logger.error("Error deleting employee with id $employeeId: ${e.message}")
+                logger.error("Error deleting employee id - [{}]: ${e.message}", employeeId, e)
                 ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build()
             }
         } else {
