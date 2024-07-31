@@ -18,6 +18,10 @@ import org.springframework.stereotype.Repository
 @Repository
 interface EmployeeRepository : MongoRepository<EmployeesDocument, String> {
 
-    override fun existsById (id: String): Boolean
+    override fun existsById (employeeId: String): Boolean
+
+    fun findByEmployeeId (employeeId: String): EmployeesDocument?
+
+
 
 }

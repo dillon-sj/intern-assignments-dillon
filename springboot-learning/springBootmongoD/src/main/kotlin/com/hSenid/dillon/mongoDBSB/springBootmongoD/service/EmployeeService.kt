@@ -22,13 +22,15 @@ class EmployeeService(private val employeeRepository: EmployeeRepository) {
 
     fun findById(id: String): EmployeesDocument? = employeeRepository.findById(id).orElse(null)
 
-    fun existsById(id: String): Boolean = employeeRepository.existsById(id)
+    fun findByEmployeeId(employeeId: String): EmployeesDocument? = employeeRepository.findByEmployeeId(employeeId)
+
+    fun existsById(employeeId: String): Boolean = employeeRepository.existsById(employeeId)
 
     fun save(employee: EmployeesDocument): EmployeesDocument = employeeRepository.save(employee)
 
-    fun update(id: String, updatedEmployee: EmployeesDocument): EmployeesDocument? {
-        return if (employeeRepository.existsById(id)) {
-            val employeeToUpdate = updatedEmployee.copy(id = id)
+    fun update(employeeId: String, updatedEmployee: EmployeesDocument): EmployeesDocument? {
+        return if (employeeRepository.existsById(employeeId)) {
+            val employeeToUpdate = updatedEmployee.copy(employeeId = employeeId)
             employeeRepository.save(employeeToUpdate)
         } else {
             null
@@ -36,6 +38,7 @@ class EmployeeService(private val employeeRepository: EmployeeRepository) {
     }
 
     fun deleteById(id: String) = employeeRepository.deleteById(id)
+
 
 }
 
