@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
+@CrossOrigin(origins = ["http://localhost:3001"], maxAge=3600, allowCredentials = "true")
 @RequestMapping("/api/employees")
 class EmployeeController(private val employeeService: EmployeeService) {
 
