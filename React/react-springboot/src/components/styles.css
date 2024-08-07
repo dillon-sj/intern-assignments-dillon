@@ -1,0 +1,16 @@
+.topper {
+    background-color: #21438b;
+    padding: 5px;
+}
+.holder {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand-name-navbar {
+    color: #fca311;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding-left: 20px;
+}
