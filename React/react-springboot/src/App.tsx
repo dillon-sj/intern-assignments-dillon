@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import GetEmployeesById from "./pages/GetEmployeesById";
 import PostEmployee from "./pages/PostEmployee";
 import DeleteEmployee from "./pages/DeleteEmployee";
+import PutEmployee from "./pages/PutEmployee";
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                 />
                 <Route path="/postEmployee" element={<PostEmployee />} />
                 <Route path="/deleteEmployee" element={<DeleteEmployee />} />
+                <Route path="/putEmployee" element={<PutEmployee />} />
             </Routes>
         </div>
     );

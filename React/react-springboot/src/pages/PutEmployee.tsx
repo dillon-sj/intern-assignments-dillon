@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState } from "react";
-import "./PostEmployee.css";
 
 interface Employee {
     employeeId: string;
@@ -9,14 +8,14 @@ interface Employee {
     designation: string;
 }
 
-const PostEmployeePage: React.FC = () => {
+const PutEmployeePage: React.FC = () => {
     const [employee, setEmployee] = useState<Employee>({
         employeeId: "",
         employeeFirstName: "",
         employeeLastName: "",
         designation: "",
     });
-    const [posted, setPosted] = useState<boolean | null>(null);
+    const [updated, setUpdated] = useState<boolean | null>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -29,17 +28,24 @@ const PostEmployeePage: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            await axios.post("http://localhost:8080/api/employees", employee);
-            setPosted(true);
+            await axios.put(
+                `http://localhost:8080/api/employees/${employee.employeeId}`,
+                {
+                    employeeFirstName: employee.employeeFirstName,
+                    employeeLastName: employee.employeeLastName,
+                    designation: employee.designation,
+                }
+            );
+            setUpdated(true);
         } catch (error) {
-            console.error("Error posting employee:", error);
-            setPosted(false);
+            console.error("Error updating employee:", error);
+            setUpdated(false);
         }
     };
 
     return (
         <div>
-            <div className="main-title">Add New Employee</div>
+            <div className="main-title">Update Employee Details</div>
             <form className="employee-form" onSubmit={handleSubmit}>
                 <div className="input-section">
                     <label>
@@ -63,7 +69,6 @@ const PostEmployeePage: React.FC = () => {
                             name="employeeFirstName"
                             value={employee.employeeFirstName}
                             onChange={handleChange}
-                            required
                         />
                     </label>
                 </div>
@@ -76,7 +81,6 @@ const PostEmployeePage: React.FC = () => {
                             name="employeeLastName"
                             value={employee.employeeLastName}
                             onChange={handleChange}
-                            required
                         />
                     </label>
                 </div>
@@ -89,26 +93,25 @@ const PostEmployeePage: React.FC = () => {
                             name="designation"
                             value={employee.designation}
                             onChange={handleChange}
-                            required
                         />
                     </label>
                 </div>
                 <button className="submit-btn" type="submit">
-                    Add Employee
+                    Update Employee
                 </button>
             </form>
             <div className="employee-details-container">
-                {posted === true && (
+                {updated === true && (
                     <p className="success-message">
-                        Employee successfully added
+                        Employee successfully updated
                     </p>
                 )}
-                {posted === false && (
-                    <p className="error-message">Failed to add employee</p>
+                {updated === false && (
+                    <p className="error-message">Failed to update employee</p>
                 )}
             </div>
         </div>
     );
 };
 
-export default PostEmployeePage;
+export default PutEmployeePage;

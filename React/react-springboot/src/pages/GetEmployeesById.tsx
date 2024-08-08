@@ -15,7 +15,6 @@ const GetEmployeesByIdPage: React.FC = () => {
     const [searched, setSearched] = useState<boolean>(false);
 
     const fetchEmployeeById = async () => {
-        setSearched(false);
         try {
             const response = await axios.get<Employee>(
                 `http://localhost:8080/api/employees/${employeeId}`

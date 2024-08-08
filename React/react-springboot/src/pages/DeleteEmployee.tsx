@@ -1,35 +1,49 @@
 import axios from "axios";
-import { useState, useCallback } from "react";
+import { useState } from "react";
 
-const DeleteEmployeePage: React.FC = () => {
+const DeleteEmployee: React.FC = () => {
     const [employeeId, setEmployeeId] = useState<string>("");
-    const [message, setMessage] = useState<string | null>(null);
+    const [deleted, setDeleted] = useState<boolean | null>(null);
 
-    const url = `http://localhost:8080/api/employees/${employeeId}`;
-
-    const deleteEmployee = useCallback(async () => {
+    const deleteEmployeeById = async () => {
         try {
-            await axios.delete(url);
-            setMessage("Employee successfully deleted");
+            await axios.delete(
+                `http://localhost:8080/api/employees/${employeeId}`
+            );
+            setDeleted(true);
         } catch (error) {
-            console.error("Error deleting employee", error);
-            setMessage("Error deleting employee");
+            console.error("Error deleting employee:", error);
+            setDeleted(false);
         }
-    }, [employeeId]);
+    };
 
     return (
         <div>
-            <h1>Delete Employee By ID</h1>
-            <input
-                type="text"
-                value={employeeId}
-                onChange={(e) => setEmployeeId(e.target.value)}
-                placeholder="Enter Employee ID to delete"
-            />
-            <button onClick={deleteEmployee}>Delete Employee</button>
-            {message && <p>{message}</p>}
+            <div className="main-title">Delete Employee By ID</div>
+            <div className="input-section">
+                <input
+                    className="input-field"
+                    type="text"
+                    value={employeeId}
+                    onChange={(e) => setEmployeeId(e.target.value)}
+                    placeholder="Enter an Employee ID"
+                />
+                <button className="submit-btn" onClick={deleteEmployeeById}>
+                    Delete Employee
+                </button>
+            </div>
+            <div className="employee-details-container">
+                {deleted === true && (
+                    <p className="success-message">
+                        Employee successfully deleted
+                    </p>
+                )}
+                {deleted === false && (
+                    <p className="error-message">Failed to delete employee</p>
+                )}
+            </div>
         </div>
     );
 };
 
-export default DeleteEmployeePage;
+export default DeleteEmployee;

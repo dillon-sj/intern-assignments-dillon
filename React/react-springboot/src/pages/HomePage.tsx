@@ -11,7 +11,7 @@ const HomePage = () => {
             </div>
             <div className="btn-holder">
                 <div className="request-table">
-                    <div className="request-title">Get Request</div>
+                    <div className="request-title get-title ">Get Request</div>
                     <div className="request-contents">
                         <ul className="list-style">
                             <li className="list-content-style">
@@ -33,7 +33,9 @@ const HomePage = () => {
                 </div>
 
                 <div className="request-table">
-                    <div className="request-title">Post Request</div>
+                    <div className="request-title post-title ">
+                        Post Request
+                    </div>
                     <div className="request-contents">
                         <ul className="list-style">
                             <li className="list-content-style">
@@ -47,13 +49,29 @@ const HomePage = () => {
                     </div>
                 </div>
                 <div className="request-table">
-                    <div className="request-title">Delete Request</div>
+                    <div className="request-title delete-title ">
+                        Delete Request
+                    </div>
                     <div className="request-contents">
                         <ul className="list-style">
                             <li className="list-content-style">
-                                <Link to={"/getAllEmployeesPage"}>
+                                <Link to={"/deleteEmployee"}>
                                     <button className="link-name delete-request ">
                                         Delete Employee By ID
+                                    </button>
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div className="request-table">
+                    <div className="request-title Put-title ">Put Request</div>
+                    <div className="request-contents">
+                        <ul className="list-style">
+                            <li className="list-content-style">
+                                <Link to={"/putEmployee"}>
+                                    <button className="link-name put-request ">
+                                        Put Employee By ID
                                     </button>
                                 </Link>
                             </li>
