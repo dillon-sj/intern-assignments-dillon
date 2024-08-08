@@ -1,6 +1,5 @@
-import React, { useState } from "react";
 import axios from "axios";
-import NavBar from "../components/NavBar";
+import { useState } from "react";
 import "./GetEmployeesById.css";
 
 interface Employee {
@@ -10,11 +9,13 @@ interface Employee {
     employeeLastName: string;
 }
 
-const GetEmployeesByIdPage = () => {
-    const [employeeId, setEmployeeId] = useState("");
+const GetEmployeesByIdPage: React.FC = () => {
+    const [employeeId, setEmployeeId] = useState<string>("");
     const [employee, setEmployee] = useState<Employee | null>(null);
+    const [searched, setSearched] = useState<boolean>(false);
 
     const fetchEmployeeById = async () => {
+        setSearched(false);
         try {
             const response = await axios.get<Employee>(
                 `http://localhost:8080/api/employees/${employeeId}`
@@ -23,12 +24,13 @@ const GetEmployeesByIdPage = () => {
         } catch (error) {
             console.error("Employee not found");
             setEmployee(null);
+        } finally {
+            setSearched(true);
         }
     };
 
     return (
         <div>
-            <NavBar />
             <div className="main-title">Get Employee By ID</div>
             <div className="input-section">
                 <input
@@ -43,7 +45,7 @@ const GetEmployeesByIdPage = () => {
                 </button>
             </div>
             <div className="employee-details-container">
-                {employee ? (
+                {searched && employee ? (
                     <div className="single-employee">
                         <p>
                             Employee Id: {employee.employeeId}.<br />
@@ -51,9 +53,9 @@ const GetEmployeesByIdPage = () => {
                             Last Name: {employee.employeeLastName}.<br />
                         </p>
                     </div>
-                ) : (
+                ) : searched && !employee ? (
                     <p className="single-employee">Employee not found</p>
-                )}
+                ) : null}
             </div>
         </div>
     );

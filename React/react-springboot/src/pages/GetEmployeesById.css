@@ -40,6 +40,19 @@
     font-weight: 600;
 }
 
+.submit-btn:hover {
+    background-color: #fca311;
+    color: #21438b;
+    transition: 500ms;
+    cursor: pointer;
+}
+
+.submit-btn:active {
+    background-color: #fca311;
+    color: #21438b;
+    transform: translateY(2px);
+}
+
 .employee-details-container {
     display: flex;
     flex-direction: column;
