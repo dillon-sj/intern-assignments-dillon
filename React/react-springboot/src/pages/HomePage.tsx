@@ -65,7 +65,7 @@ const HomePage = () => {
                     </div>
                 </div>
                 <div className="request-table">
-                    <div className="request-title Put-title ">Put Request</div>
+                    <div className="request-title put-title">Put Request</div>
                     <div className="request-contents">
                         <ul className="list-style">
                             <li className="list-content-style">

@@ -83,21 +83,21 @@ class EmployeeController(private val employeeService: EmployeeService) {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedEmployee)
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{employeeId}")
     fun updateEmployee(
-        @PathVariable id: String,
+        @PathVariable employeeId: String,
         @RequestBody updatedEmployee: EmployeesDocument,
     ): ResponseEntity<EmployeesDocument> {
-        if (id.isEmpty()) {
+        if (employeeId.isEmpty()) {
             logAndThrow(IllegalArgumentException("Employee ID must be provided"))
         }
 
-        val updated = employeeService.update(id, updatedEmployee)
+        val updated = employeeService.update(employeeId, updatedEmployee)
         return if (updated != null) {
-            logger.info("Successfully updated employee id - [{}]", id)
+            logger.info("Successfully updated employee id - [{}]", employeeId)
             ResponseEntity.ok(updated)
         } else {
-            logAndThrow(NoSuchElementException("No Employee found with id $id"))
+            logAndThrow(NoSuchElementException("No Employee found with id $employeeId"))
         }
     }
 

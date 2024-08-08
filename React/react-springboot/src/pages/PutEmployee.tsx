@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import "./pageStyle.css";
 
 interface Employee {
     employeeId: string;
@@ -46,60 +47,62 @@ const PutEmployeePage: React.FC = () => {
     return (
         <div>
             <div className="main-title">Update Employee Details</div>
-            <form className="employee-form" onSubmit={handleSubmit}>
-                <div className="input-section">
-                    <label>
-                        Employee ID:
-                        <input
-                            className="input-field"
-                            type="text"
-                            name="employeeId"
-                            value={employee.employeeId}
-                            onChange={handleChange}
-                            required
-                        />
-                    </label>
-                </div>
-                <div className="input-section">
-                    <label>
-                        First Name:
-                        <input
-                            className="input-field"
-                            type="text"
-                            name="employeeFirstName"
-                            value={employee.employeeFirstName}
-                            onChange={handleChange}
-                        />
-                    </label>
-                </div>
-                <div className="input-section">
-                    <label>
-                        Last Name:
-                        <input
-                            className="input-field"
-                            type="text"
-                            name="employeeLastName"
-                            value={employee.employeeLastName}
-                            onChange={handleChange}
-                        />
-                    </label>
-                </div>
-                <div className="input-section">
-                    <label>
-                        Designation:
-                        <input
-                            className="input-field"
-                            type="text"
-                            name="designation"
-                            value={employee.designation}
-                            onChange={handleChange}
-                        />
-                    </label>
-                </div>
-                <button className="submit-btn" type="submit">
-                    Update Employee
-                </button>
-            </form>
+            <div className="form-holder">
+                <form className="employee-form" onSubmit={handleSubmit}>
+                    <div className="input-section">
+                        <label>
+                            Employee ID:
+                            <input
+                                className="input-field"
+                                type="text"
+                                name="employeeId"
+                                value={employee.employeeId}
+                                onChange={handleChange}
+                                required
+                            />
+                        </label>
+                    </div>
+                    <div className="input-section">
+                        <label>
+                            First Name:
+                            <input
+                                className="input-field"
+                                type="text"
+                                name="employeeFirstName"
+                                value={employee.employeeFirstName}
+                                onChange={handleChange}
+                            />
+                        </label>
+                    </div>
+                    <div className="input-section">
+                        <label>
+                            Last Name:
+                            <input
+                                className="input-field"
+                                type="text"
+                                name="employeeLastName"
+                                value={employee.employeeLastName}
+                                onChange={handleChange}
+                            />
+                        </label>
+                    </div>
+                    <div className="input-section">
+                        <label>
+                            Designation:
+                            <input
+                                className="input-field"
+                                type="text"
+                                name="designation"
+                                value={employee.designation}
+                                onChange={handleChange}
+                            />
+                        </label>
+                    </div>
+                    <button className="submit-btn" type="submit">
+                        Update Employee
+                    </button>
+                </form>
+            </div>
             <div className="employee-details-container">
                 {updated === true && (
                     <p className="success-message">

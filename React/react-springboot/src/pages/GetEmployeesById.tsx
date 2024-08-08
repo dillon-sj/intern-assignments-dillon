@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import "./pageStyle.css";
 
 interface Employee {
     id: string;

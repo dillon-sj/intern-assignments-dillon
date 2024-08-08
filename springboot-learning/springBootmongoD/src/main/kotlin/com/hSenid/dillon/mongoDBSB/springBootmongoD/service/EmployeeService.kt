@@ -34,7 +34,9 @@ class EmployeeService(private val employeeRepository: EmployeeRepository) {
 //        print(employeeId)
         return if (employeeRepository.findByEmployeeId(employeeId)!=null) {
             val employeeToUpdate = updatedEmployee.copy(employeeId = employeeId)
+            employeeRepository.deleteByEmployeeId(employeeId)
             employeeRepository.save(employeeToUpdate)
+
         } else {
             null
         }
