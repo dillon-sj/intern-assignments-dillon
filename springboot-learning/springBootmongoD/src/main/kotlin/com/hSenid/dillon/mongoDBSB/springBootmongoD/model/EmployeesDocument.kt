@@ -17,7 +17,7 @@ import java.time.LocalDate
 
 @Document(collection = "Employees")
 data class EmployeesDocument(
-    @Id val id: String? = null,
+    @Id val _id: String? = null,
     val employeeId: String = "unknow",
     val employeeFirstName: String = "unknow",
     val employeeLastName: String = "unknow",

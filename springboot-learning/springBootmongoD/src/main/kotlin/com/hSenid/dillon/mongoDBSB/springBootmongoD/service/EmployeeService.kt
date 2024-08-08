@@ -29,7 +29,10 @@ class EmployeeService(private val employeeRepository: EmployeeRepository) {
     fun save(employee: EmployeesDocument): EmployeesDocument = employeeRepository.save(employee)
 
     fun update(employeeId: String, updatedEmployee: EmployeesDocument): EmployeesDocument? {
-        return if (employeeRepository.existsById(employeeId)) {
+
+//        print("-----------------------------------------------------------------------------------------")
+//        print(employeeId)
+        return if (employeeRepository.findByEmployeeId(employeeId)!=null) {
             val employeeToUpdate = updatedEmployee.copy(employeeId = employeeId)
             employeeRepository.save(employeeToUpdate)
         } else {

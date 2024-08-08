@@ -31,7 +31,7 @@ internal class EmployeeControllerTest @Autowired constructor(
         @Test
         fun `should return all employees`() {
             //given
-            val employeeById = "001001"
+            val employeeById = "001003"
             //when
             mockMvc.get(baseUrl).andDo { print() }.andExpect {
                 status { isOk() }
@@ -81,7 +81,7 @@ internal class EmployeeControllerTest @Autowired constructor(
         fun `should add the new employee`() {
             // given
             val newEmployee = EmployeesDocument(
-                id = "",
+                _id = "",
                 employeeId = uniqueId,
                 employeeFirstName = "Chirantha",
                 employeeLastName = "Pitigala",
@@ -123,7 +123,7 @@ internal class EmployeeControllerTest @Autowired constructor(
         fun `should return a BAD REQUEST when ID already exists`() {
             //given
             val existingEmployee = EmployeesDocument(
-                id = "5e4d604991b6134a75045ecd",
+                _id = "5e4d604991b6134a75045ecd",
                 employeeId = "001001",
                 employeeFirstName = "Chirantha",
                 employeeLastName = "Pitigala",
@@ -166,9 +166,9 @@ internal class EmployeeControllerTest @Autowired constructor(
         @Test
         fun `should update the employee`() {
             //given
-            val existingId = "5e4d604991b6134a75045ecd"
+            val existingId = "13212321"
             val existingEmployee = EmployeesDocument(
-                id = "",
+                _id = "",
                 employeeId = existingId,
                 employeeFirstName = "Chirantha",
                 employeeLastName = "Pitigala",
@@ -209,8 +209,8 @@ internal class EmployeeControllerTest @Autowired constructor(
             //given
             val nonExistentId = "non-existent-id"
             val updatedEmployee = EmployeesDocument(
-                id = nonExistentId,
-                employeeId = "001007",
+                _id = "",
+                employeeId = nonExistentId,
                 employeeFirstName = "Vanuja",
                 employeeLastName = "Pitigala",
                 employeeGender = "male",
@@ -254,7 +254,7 @@ internal class EmployeeControllerTest @Autowired constructor(
             }
 
             val employeeToDelete = EmployeesDocument(
-                id = "",
+                _id = "",
                 employeeId = employeeId,
                 employeeFirstName = "Vanuja",
                 employeeLastName = "Pitigala",
