@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState } from "react";
-import "./PostEmployee.css";
 
 interface Employee {
     employeeId: string;
