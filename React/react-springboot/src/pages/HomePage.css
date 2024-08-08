@@ -67,3 +67,42 @@
     font-size: 1.5rem;
     font-weight: 600;
 }
+
+.get-request:hover {
+    background-color: #2ecc70;
+    color: #000000;
+    transition: 500ms;
+    cursor: pointer;
+}
+
+.get-request:active {
+    background-color: #64dd96;
+    color: #000000;
+    transform: translateY(2px);
+}
+
+.post-resquest:hover {
+    background-color: #fca311;
+    color: #000000;
+    transition: 500ms;
+    cursor: pointer;
+}
+
+.post-resquest:active {
+    background-color: #ffbb4d;
+    color: #000000;
+    transform: translateY(2px);
+}
+
+.delete-request:hover {
+    background-color: #e74d3c;
+    color: #ffffff;
+    transition: 500ms;
+    cursor: pointer;
+}
+
+.delete-request:active {
+    background-color: #ff6655;
+    color: #ffffff;
+    transform: translateY(2px);
+}

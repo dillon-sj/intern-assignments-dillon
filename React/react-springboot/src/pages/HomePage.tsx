@@ -1,12 +1,10 @@
 import React from "react";
-import NavBar from "../components/NavBar";
 import "./HomePage.css";
 import { Link } from "react-router-dom";
 
 const HomePage = () => {
     return (
         <div className="full-page-div">
-            <NavBar />
             <div className="main-title">
                 Welcome to the <br />
                 <span className="brand-name">API Explorer</span>
@@ -18,14 +16,14 @@ const HomePage = () => {
                         <ul className="list-style">
                             <li className="list-content-style">
                                 <Link to={"/getAllEmployeesPage"}>
-                                    <button className="link-name">
+                                    <button className="link-name get-request">
                                         Get All Employees
                                     </button>
                                 </Link>
                             </li>
                             <li className="list-content-style">
                                 <Link to={"/getEmployeeByIdPage"}>
-                                    <button className="link-name">
+                                    <button className="link-name get-request ">
                                         Get Employee By ID
                                     </button>
                                 </Link>
@@ -39,19 +37,10 @@ const HomePage = () => {
                     <div className="request-contents">
                         <ul className="list-style">
                             <li className="list-content-style">
-                                <Link to={"/getAllEmployeesPage"}>
-                                    <button className="link-name">
-                                        Get Employee By ID
+                                <Link to={"/postEmployee"}>
+                                    <button className="link-name post-resquest ">
+                                        Post Employee
                                     </button>
-                                </Link>
-                            </li>
-                            <li className="list-content-style">
-                                <Link to={"/getEmployeeByIdPage"}>
-                                    <div>
-                                        <button className="link-name">
-                                            Get Employee By ID
-                                        </button>
-                                    </div>
                                 </Link>
                             </li>
                         </ul>
@@ -63,15 +52,8 @@ const HomePage = () => {
                         <ul className="list-style">
                             <li className="list-content-style">
                                 <Link to={"/getAllEmployeesPage"}>
-                                    <button className="link-name">
-                                        Get Employee By ID
-                                    </button>
-                                </Link>
-                            </li>
-                            <li className="list-content-style">
-                                <Link to={"/getEmployeeByIdPage"}>
-                                    <button className="link-name">
-                                        Get Employee By ID
+                                    <button className="link-name delete-request ">
+                                        Delete Employee By ID
                                     </button>
                                 </Link>
                             </li>

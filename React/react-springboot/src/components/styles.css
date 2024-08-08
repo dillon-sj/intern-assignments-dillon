@@ -14,3 +14,23 @@
     font-weight: bold;
     padding-left: 20px;
 }
+
+.home-btn {
+    background-color: #fca311;
+    color: #21438b;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 10px 15px;
+    margin-right: 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.home-btn:hover {
+    color: #ffffff;
+    transition: 500ms;
+}
+.home-btn:active {
+    transform: translateY(2px);
+}

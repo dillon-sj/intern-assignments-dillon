@@ -8,7 +8,7 @@ const NavBar = () => {
             <div className="holder">
                 <p className="brand-name-navbar">API Explorer</p>
                 <Link to={"/home"}>
-                    <button>Home</button>
+                    <button className="home-btn">Home</button>
                 </Link>
             </div>
         </div>

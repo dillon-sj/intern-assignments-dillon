@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./GetAllEmployees.css";
-import NavBar from "../components/NavBar";
 
-const GetAllEmployeesPage = () => {
+const GetAllEmployeesPage: React.FC = () => {
     const [employees, setEmployees] = useState([]);
 
     useEffect(() => {
@@ -23,7 +22,6 @@ const GetAllEmployeesPage = () => {
 
     return (
         <div>
-            <NavBar />
             <div className="main-title">Get All Employees Page</div>
             <div className="all-employees-container">
                 {employees.length > 0 ? (
